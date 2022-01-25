@@ -26,3 +26,7 @@ productSearch.events.on('productSelected', (fdcId) => {
   //console.log('fdcId: ' + fdcId)
   
 })
+
+productList.events.on('nutrientChange', (nutrients) => {
+  console.log('nutrients: ', nutrients)
+})
