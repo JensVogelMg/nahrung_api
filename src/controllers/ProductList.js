@@ -114,8 +114,18 @@ ProductList.prototype.removeProduct = function(fdcId) {
 }
 
 ProductList.prototype.addProduct = function(fdcId) {
+  //console.log('fdcId: ', fdcId)
+  for (const product of this.products) {
+    //console.log('fdcId_list: ', product.product['fdcId'])
+    if (('' + product.product['fdcId']) === ('' + fdcId)) {
+      //console.log('schon da')
+      return
+    }
+  }
   info(fdcId)
+  
     .then((product) => {
+      //console.log('fdcId einfügen: ', fdcId)
       this.products.push({
         amount: 100,
         product
