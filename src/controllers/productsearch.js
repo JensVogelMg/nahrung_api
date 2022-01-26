@@ -39,18 +39,22 @@ ProductSearch.prototype.init = function() {
 }
 
 ProductSearch.prototype.runSearch = function(term) {
-  search(term).then((res) => {
-    console.log('Ergebnisse: ', res)
-    this.resultElement.innerHTML = ""
-    for (const resElement of res) {
-      const liElem = `<li 
-        class="list-group-item list-group-item-action product-search--result-item"
-        data-fdcid="${resElement.fdcId}">
-        <a href="#">${resElement.description}</a>
-          </li>`
-      this.resultElement.innerHTML += liElem
-    }
-  })
+  search(term)
+    .then((res) => {
+      //console.log('Ergebnisse: ', res)
+      this.resultElement.innerHTML = ""
+      for (const resElement of res) {
+        const liElem = `<li 
+          class="list-group-item list-group-item-action product-search--result-item"
+          data-fdcid="${resElement.fdcId}">
+          <a href="#">${resElement.description}</a>
+            </li>`
+        this.resultElement.innerHTML += liElem
+      }
+    })
+    .catch((err) => {
+      console.error("Es ist ein Fehler aufgetreten, bitte die Suche noch einmal ausführen")
+    })
 }
 
 module.exports = ProductSearch
