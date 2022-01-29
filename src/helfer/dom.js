@@ -15,3 +15,7 @@ module.exports.on = function on(selector, eventType, cb) {
     }
   })
 }
+
+module.exports.sum = function sum(a, b) {
+  return a + b
+}

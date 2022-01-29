@@ -124,23 +124,24 @@ ProductList.prototype.addProduct = function(fdcId) {
   }
   info(fdcId)
   
-    .then((product) => {
-      //console.log('fdcId einfügen: ', fdcId)
-      this.products.push({
-        amount: 100,
-        product
-      })
-      this.listElement.insertAdjacentHTML('beforeend', productListTemplate({
-        title: product['description'],
-        fdcId: fdcId
-      }))
-      
-      //this.getNutrients()
-      this.emitNutrients()
-    })
+    .then((product) => this.addFetchedProduct(product))
     .catch((err) => {
       console.error("Produkt konnte nicht hinzugefügt werden")
     })
+}
+
+ProductList.prototype.addFetchedProduct = function(product) {
+  this.products.push({
+    amount: 100,
+    product
+  })
+  this.listElement.insertAdjacentHTML('beforeend', productListTemplate({
+    title: product['description'],
+    fdcId: fdcId
+  }))
+
+  //this.getNutrients()
+  this.emitNutrients()
 }
 
 module.exports = ProductList
