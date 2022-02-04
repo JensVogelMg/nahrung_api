@@ -30,6 +30,7 @@ ProductList.prototype.init = function() {
 }
 
 ProductList.prototype.emitNutrients = function() {
+  console.log('emit.....')
   const nutrients = this.getNutrients()
   this.events.emit('nutrientChange', nutrients)
 }
@@ -124,22 +125,32 @@ ProductList.prototype.addProduct = function(fdcId) {
   }
   info(fdcId)
   
-    .then((product) => this.addFetchedProduct(product))
+    .then((product) => {
+      console.log('product: ', product)
+      this.addFetchedProduct(product)
+    })
     .catch((err) => {
       console.error("Produkt konnte nicht hinzugefügt werden")
     })
 }
 
 ProductList.prototype.addFetchedProduct = function(product) {
+  console.log('Products:', this.products )
   this.products.push({
     amount: 100,
     product
   })
-  this.listElement.insertAdjacentHTML('beforeend', productListTemplate({
+  console.log('eingefügt!!', this.listElement)
+  try {
+    this.listElement.insertAdjacentHTML('beforeend', productListTemplate({
     title: product['description'],
-    fdcId: fdcId
+    fdcId: product['fdcId']
   }))
-
+  } catch (error) {
+    console.log(error)
+  }
+  
+  //console.log('nach instert')
   //this.getNutrients()
   this.emitNutrients()
 }
